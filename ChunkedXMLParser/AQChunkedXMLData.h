@@ -36,8 +36,11 @@
  *
  */
 
+#if TARGET_OS_IPHONE
+#import <Foundation/Foundation.h>
+#else
 #import <Cocoa/Cocoa.h>
-
+#endif
 @class _AQXMLDataChunk;
 
 @interface AQChunkedXMLData : NSData

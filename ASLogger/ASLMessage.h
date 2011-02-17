@@ -51,7 +51,9 @@
 // readonly properties are those set by the server, and are only valid when receiver is the 
 //  result of an ASL query.
 @property (nonatomic, readonly) NSDate * time;			// "Time" for KVC
+#if (TARGET_OS_IPHONE == 0)
 @property (nonatomic, readonly) NSHost * host;		// "Host"
+#endif
 @property (nonatomic, copy) NSString * sender;		// "Sender"
 @property (nonatomic, copy) NSString * facility;	// "Facility"
 @property (nonatomic, readonly) pid_t processID;	// "PID"	-- no value returns  0

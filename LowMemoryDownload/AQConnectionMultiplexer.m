@@ -104,7 +104,7 @@ static AQConnectionMultiplexer * __connectionMultiplexer = nil;
 	
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(terminate)
-#ifdef IPHONEOS_DEPLOYMENT_TARGET
+#if TARGET_OS_IPHONE
 												 name: UIApplicationWillTerminateNotification
 #else
 												 name: NSApplicationWillTerminateNotification
