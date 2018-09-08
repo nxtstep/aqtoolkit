@@ -134,7 +134,7 @@ didReceiveAuthenticationChallenge: (NSURLAuthenticationChallenge *) challenge;
 	
 	// downloaded daa gets offloaded to the filesystem immediately, to get it out of memory
 	NSString * path = [NSTemporaryDirectory() stringByAppendingPathComponent: @"Quatermain"];
-	[[NSFileManager defaultManager] createDirectoryAtPath: path attributes: nil];
+	[[NSFileManager defaultManager] createDirectoryAtPath: path withIntermediateDirectories: NO attributes:nil error:nil];
 	
 	char buf[PATH_MAX];
 	[path getCString: buf maxLength: PATH_MAX encoding: NSASCIIStringEncoding];

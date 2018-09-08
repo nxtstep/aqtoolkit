@@ -64,7 +64,10 @@ static const char * levelStrings[] =
 @implementation ASLMessage
 
 @synthesize aslmessage=_message;
-@dynamic time, host, sender, facility, processID, userID, groupID, level, message;
+@dynamic time, sender, facility, processID, userID, groupID, level, message;
+#if (TARGET_OS_IPHONE == 0)
+@dynamic host;
+#endif
 @dynamic readUID, readGID;
 
 - (id) init
@@ -166,6 +169,7 @@ static const char * levelStrings[] =
 	return ( [__formatter dateFromString: [NSString stringWithUTF8String: value]] );
 }
 
+#if (TARGET_OS_IPHONE == 0)
 - (NSHost *) host
 {
 	const char * value = asl_get( _message, ASL_KEY_HOST );
@@ -174,6 +178,7 @@ static const char * levelStrings[] =
 	
 	return ( [NSHost hostWithAddress: [NSString stringWithUTF8String: value]] );
 }
+#endif
 
 - (NSString *) sender
 {

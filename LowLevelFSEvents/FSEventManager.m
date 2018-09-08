@@ -45,6 +45,7 @@
 #import <sys/types.h>
 #import <sys/sysctl.h>
 #import <sys/select.h>
+#import <fcntl.h>
 
 static FSEventManager * __singleton = nil;
 const int kFSEventBufferSize = 128 * 1024;

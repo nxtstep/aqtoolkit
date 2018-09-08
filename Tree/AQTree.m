@@ -192,7 +192,7 @@
 
 - (void) insertSibling: (AQTree *) newSibling
 {
-    NSAssert(_parent != nil, "Receiver must have a parent to insert a new sibling");
+    NSAssert(_parent != nil, @"Receiver must have a parent to insert a new sibling");
     newSibling->_sibling = _sibling;
     newSibling->_parent = _parent;
     _sibling = newSibling;
@@ -278,8 +278,10 @@ static int _qsortCompareTrees( void * arg1, void * arg2, const void * arg3 )
         nextChild = _child;
         for ( idx = 0; nextChild != nil; idx++ )
         {
+#ifndef TARGET_OS_IPHONE
             // turn off GC while we sort-- saves us coding a GC-aware version of qsort_r or qsort_b
             [[NSGarbageCollector defaultCollector] disableCollectorForPointer: nextChild];
+#endif
             list[idx] = nextChild;
             nextChild = nextChild->_sibling;
         }
@@ -301,11 +303,15 @@ static int _qsortCompareTrees( void * arg1, void * arg2, const void * arg3 )
 #endif
         
         _child = list[0];
+#ifndef TARGET_OS_IPHONE
         [[NSGarbageCollector defaultCollector] enableCollectorForPointer: _child];
+#endif
         for ( idx = 1; idx < children; idx++ )
         {
             list[idx-1]->_sibling = list[idx];
+#ifndef TARGET_OS_IPHONE
             [[NSGarbageCollector defaultCollector] enableCollectorForPointer: list[idx]];
+#endif
         }
         list[idx-1]->_sibling = nil;
         _rightmostChild = list[children-1];
@@ -409,7 +415,9 @@ static int _qsortCompareTrees( void * arg1, void * arg2, const void * arg3 )
         for ( idx = 0; nextChild != nil; idx++ )
         {
             // turn off GC while we sort-- saves us coding a GC-aware version of qsort_r or qsort_b
+#ifndef TARGET_OS_IPHONE
             [[NSGarbageCollector defaultCollector] disableCollectorForPointer: nextChild];
+#endif
             list[idx] = nextChild;
             nextChild = nextChild->_sibling;
         }
@@ -419,11 +427,15 @@ static int _qsortCompareTrees( void * arg1, void * arg2, const void * arg3 )
         });
         
         _child = list[0];
+#ifndef TARGET_OS_IPHONE
         [[NSGarbageCollector defaultCollector] enableCollectorForPointer: _child];
+#endif
         for ( idx = 1; idx < children; idx++ )
         {
             list[idx-1]->_sibling = list[idx];
+#ifndef TARGET_OS_IPHONE
             [[NSGarbageCollector defaultCollector] enableCollectorForPointer: list[idx]];
+#endif
         }
         list[idx-1]->_sibling = nil;
         _rightmostChild = list[children-1];

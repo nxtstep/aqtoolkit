@@ -39,7 +39,11 @@
 // access to _NSXMLParserInfo class and to member variables doesn't work with 64-bit ObjC ABI
 #ifndef __LP64__
 
+#if TARGET_OS_IPHONE
+#import <Foundation/Foundation.h>
+#else
 #import <Cocoa/Cocoa.h>
+#endif
 #import "AQChunkedXMLData.h"
 
 // this subclass overrides only the two functions provided here
